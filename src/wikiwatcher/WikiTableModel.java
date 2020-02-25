@@ -5,6 +5,13 @@
  */
 package wikiwatcher;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -14,23 +21,20 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author dominik
  */
-public class WikiTableModel extends AbstractTableModel {
-
-    public class TableRow{
-        protected int id, interval;
-        protected String url;
-        public TableRow(String url, int interval){
-            this.url = url;
-            this.interval = interval;
-        }
-    }
+public class WikiTableModel extends AbstractTableModel implements Serializable {
     
-    public List<TableRow> tableData = new ArrayList<>();
+    public List<TableRow> tableData;
     private String columnNames[] = {"Id", "Url", "Int."};
     
     public WikiTableModel(){
-        for(int i = 0; i < 10; i++){
-            tableData.add(new TableRow("Test "+i, i*10));
+        tableData = WikiWatcher.readWiki();
+        if(tableData == null){
+            tableData = new ArrayList<>();
+        }
+        else{
+            for(TableRow reihe : tableData){
+                System.out.println("XML-Daten: \n"+reihe.html+"\n\n\n");
+            }
         }
     }
     

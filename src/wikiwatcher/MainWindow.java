@@ -275,6 +275,7 @@ public class MainWindow extends javax.swing.JFrame {
         if(!tfAddwiki.getText().equals(urlExample) && tfAddwiki.getText().startsWith("https://www.wikifolio.com/de/de")){
             wikiModel.addRow(tfAddwiki.getText(), Integer.parseInt(tfIntervall.getText()));
             jTable1.updateUI();
+            WikiWatcher.saveWiki(wikiModel.tableData);
         }
     }//GEN-LAST:event_btnAddwikiActionPerformed
 
@@ -287,6 +288,7 @@ public class MainWindow extends javax.swing.JFrame {
         }
         jTable1.clearSelection();
         jTable1.updateUI();
+        WikiWatcher.saveWiki(wikiModel.tableData);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked

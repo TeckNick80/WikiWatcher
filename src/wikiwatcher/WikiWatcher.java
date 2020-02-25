@@ -5,7 +5,15 @@
  */
 package wikiwatcher;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.UIManager;
 import org.jsoup.Connection;
@@ -22,13 +30,13 @@ import org.jsoup.select.Elements;
 public class WikiWatcher {
     
     public static Map<String, String> cookies;
+    public static String useragent = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:65.0) Gecko/20100101 Firefox/65.0";
     public static final int LOGIN_OK = 1;
     public static final int LOGIN_FAIL_WRONG = 2;
     public static final int LOGIN_FAIL_SERVERSTATUS = 3;
     
     
     public static int login(String username, String password){
-        String useragent = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:65.0) Gecko/20100101 Firefox/65.0";
         String wikiurl = "https://www.wikifolio.com/";
         String wikilogin = "dynamic/de/de/login/login?ReturnUrl=/de/de/home&_=";
         String wikistamp = String.valueOf(System.currentTimeMillis());
@@ -80,6 +88,37 @@ public class WikiWatcher {
             System.out.println("Server-Fehler: " + ex.toString());
             return LOGIN_FAIL_SERVERSTATUS;
         }
+    }
+    
+    public static void saveWiki(List<TableRow> data){
+        try{
+                FileOutputStream oS = new FileOutputStream("wikidata.dat");
+                ObjectOutputStream oOS = new ObjectOutputStream(oS);
+                oOS.writeObject(data);
+                oOS.flush();
+                oOS.close();
+                oS.close();
+            }catch(Exception ex){
+                System.out.println("Fehler beim Schreiben der Wiki-Daten: " + ex.toString());
+            }
+    }
+    
+    public static List<TableRow> readWiki(){
+        List<TableRow> readWiki = null;
+        try{
+            //trying to read saved Wikis
+            File wikiFile = new File("wikidata.dat");
+            if(wikiFile.exists()){
+                InputStream iS = new FileInputStream(wikiFile);
+                ObjectInputStream oIS = new ObjectInputStream(iS);
+                readWiki = (List<TableRow>)oIS.readObject();
+                oIS.close();
+                iS.close();
+            }
+        }catch(Exception ex){
+            System.out.println("Can't read WikiFile: " + ex.toString());
+        }
+        return readWiki;
     }
     
     /**
