@@ -54,7 +54,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         tfIntervall = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAddwiki = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         tableScroller = new javax.swing.JScrollPane();
@@ -110,11 +110,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel6.setText("Sek.");
 
-        jButton1.setText("Hinzufügen");
-        jButton1.setEnabled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddwiki.setText("Hinzufügen");
+        btnAddwiki.setEnabled(false);
+        btnAddwiki.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddwikiActionPerformed(evt);
             }
         });
 
@@ -164,7 +164,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAddwiki, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -229,7 +229,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(tfIntervall, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jButton1))
+                    .addComponent(btnAddwiki))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -256,7 +256,11 @@ public class MainWindow extends javax.swing.JFrame {
                 lblLoginStatus.setText("Login-Status: Eingeloggt");
                 tfAddwiki.setEnabled(true);
                 tfIntervall.setEnabled(true);
+                btnAddwiki.setEnabled(true);
                 btnStartWatch.setEnabled(true);
+                btnLogin.setEnabled(false);
+                tfUsername.setEnabled(false);
+                tfPassword.setEnabled(false);
                 break;
             case WikiWatcher.LOGIN_FAIL_WRONG:
                 lblLoginStatus.setText("Login-Status: Einloggen fehlgeschlagen. Falsche Login-Daten.");
@@ -267,10 +271,12 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        wikiModel.addRow(tfAddwiki.getText(), Integer.parseInt(tfIntervall.getText()));
-        jTable1.updateUI();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnAddwikiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddwikiActionPerformed
+        if(!tfAddwiki.getText().equals(urlExample) && tfAddwiki.getText().startsWith("https://www.wikifolio.com/de/de")){
+            wikiModel.addRow(tfAddwiki.getText(), Integer.parseInt(tfIntervall.getText()));
+            jTable1.updateUI();
+        }
+    }//GEN-LAST:event_btnAddwikiActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int reihen[] = jTable1.getSelectedRows();
@@ -288,14 +294,14 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseClicked
 
     private void tfAddwikiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfAddwikiMouseClicked
-        if(tfAddwiki.getText().equals("https://www.wikifolio.com/de/de/w/beispiel")){
+        if(tfAddwiki.getText().equals(urlExample)){
             tfAddwiki.setText("");
         }
     }//GEN-LAST:event_tfAddwikiMouseClicked
 
     private void tfAddwikiFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfAddwikiFocusLost
         if(tfAddwiki.getText().equals("")){
-            tfAddwiki.setText("https://www.wikifolio.com/de/de/w/beispiel");
+            tfAddwiki.setText(urlExample);
         }
     }//GEN-LAST:event_tfAddwikiFocusLost
 
@@ -335,12 +341,12 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddwiki;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnStartWatch;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
