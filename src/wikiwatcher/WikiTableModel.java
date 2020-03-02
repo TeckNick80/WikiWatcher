@@ -33,7 +33,9 @@ public class WikiTableModel extends AbstractTableModel implements Serializable {
         }
         else{
             for(TableRow reihe : tableData){
-                System.out.println("XML-Daten: \n"+reihe.html+"\n\n\n");
+                System.out.println("\n\n\nXML-Daten:");
+                System.out.println(new WikiTradeDetails(reihe.html).toString());
+                //System.out.println("XML-Daten: \n"+reihe.html+"\n\n\n");
             }
         }
     }
